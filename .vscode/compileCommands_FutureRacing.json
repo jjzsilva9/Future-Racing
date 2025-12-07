@@ -1,0 +1,314 @@
+[
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacing.Build.cs",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacing.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacing.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacingGameMode.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacingGameMode.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacingPawn.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacingPawn.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacingPlayerController.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacingPlayerController.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacingSportsCar.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacingUI.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacingUI.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacingWheelFront.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacingWheelFront.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacingWheelRear.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\FutureRacingWheelRear.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\OffroadCar\\FutureRacingOffroadCar.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\OffroadCar\\FutureRacingOffroadCar.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\OffroadCar\\FutureRacingOffroadWheelFront.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\OffroadCar\\FutureRacingOffroadWheelFront.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\OffroadCar\\FutureRacingOffroadWheelRear.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\OffroadCar\\FutureRacingOffroadWheelRear.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\SportsCar\\FutureRacingSportsCar.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\SportsCar\\FutureRacingSportsWheelFront.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\SportsCar\\FutureRacingSportsWheelFront.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\SportsCar\\FutureRacingSportsWheelRear.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\SportsCar\\FutureRacingSportsWheelRear.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\Variant_OffRoad\\OffroadGameMode.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\Variant_OffRoad\\OffroadGameMode.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\Variant_TimeTrial\\TimeTrialGameMode.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\Variant_TimeTrial\\TimeTrialGameMode.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\Variant_TimeTrial\\TimeTrialPlayerController.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\Variant_TimeTrial\\TimeTrialPlayerController.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\Variant_TimeTrial\\TimeTrialTrackGate.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\Variant_TimeTrial\\TimeTrialTrackGate.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\Variant_TimeTrial\\UI\\TimeTrialStartUI.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\Variant_TimeTrial\\UI\\TimeTrialStartUI.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\Variant_TimeTrial\\UI\\TimeTrialUI.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal\\FutureRacing\\Source\\FutureRacing\\Variant_TimeTrial\\UI\\TimeTrialUI.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Unreal\\FutureRacing\\.vscode\\compileCommands_FutureRacing\\FutureRacing.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	}
+]
