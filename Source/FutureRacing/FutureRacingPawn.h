@@ -61,6 +61,10 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* HandbrakeAction;
 
+	/** Boost Action */
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* BoostAction;
+
 	/** Look Around Action */
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* LookAroundAction;
@@ -93,6 +97,9 @@ protected:
 public:
 	AFutureRacingPawn();
 
+	float boostThrottleAmount;
+	float boostStored;
+	bool isBoosting;
 	// Begin Pawn interface
 
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
@@ -130,6 +137,10 @@ protected:
 	/** Handles handbrake start/stop inputs */
 	void StartHandbrake(const FInputActionValue& Value);
 	void StopHandbrake(const FInputActionValue& Value);
+
+	/** Handles boost start/stop inputs */
+	void StartBoost(const FInputActionValue& Value);
+	void StopBoost(const FInputActionValue& Value);
 
 	/** Handles look around input */
 	void LookAround(const FInputActionValue& Value);
@@ -169,6 +180,14 @@ public:
 	/** Handle handbrake stop input by input actions or mobile interface */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	void DoHandbrakeStop();
+
+	/** Handle boost start input by input actions or mobile interface */
+	UFUNCTION(BlueprintCallable, Category="Input")
+	void DoBoostStart();
+
+	/** Handle boost stop input by input actions or mobile interface */
+	UFUNCTION(BlueprintCallable, Category="Input")
+	void DoBoostStop();
 
 	/** Handle look input by input actions or mobile interface */
 	UFUNCTION(BlueprintCallable, Category="Input")

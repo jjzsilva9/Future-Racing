@@ -52,6 +52,9 @@ AFutureRacingPawn::AFutureRacingPawn()
 	// get the Chaos Wheeled movement component
 	ChaosVehicleMovement = CastChecked<UChaosWheeledVehicleMovementComponent>(GetVehicleMovement());
 
+	boostThrottleAmount = 10.0f;
+	boostStored = 100.0f;
+	isBoosting = false;
 }
 
 void AFutureRacingPawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -76,6 +79,10 @@ void AFutureRacingPawn::SetupPlayerInputComponent(class UInputComponent* PlayerI
 		// handbrake 
 		EnhancedInputComponent->BindAction(HandbrakeAction, ETriggerEvent::Started, this, &AFutureRacingPawn::StartHandbrake);
 		EnhancedInputComponent->BindAction(HandbrakeAction, ETriggerEvent::Completed, this, &AFutureRacingPawn::StopHandbrake);
+
+		// boost
+		EnhancedInputComponent->BindAction(BoostAction, ETriggerEvent::Started, this, &AFutureRacingPawn::StartBoost);
+		EnhancedInputComponent->BindAction(BoostAction, ETriggerEvent::Completed, this, &AFutureRacingPawn::StopBoost);
 
 		// look around 
 		EnhancedInputComponent->BindAction(LookAroundAction, ETriggerEvent::Triggered, this, &AFutureRacingPawn::LookAround);
@@ -121,6 +128,16 @@ void AFutureRacingPawn::Tick(float Delta)
 	CameraYaw = FMath::FInterpTo(CameraYaw, 0.0f, Delta, 1.0f);
 
 	BackSpringArm->SetRelativeRotation(FRotator(0.0f, CameraYaw, 0.0f));
+
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Boost Stored: %.1f"), boostStored));
+	if (isBoosting) {
+		boostStored -= Delta * 20.0f;
+
+		if (boostStored <= 0.0f) {
+			boostStored = 0.0f;
+			DoBoostStop();
+		}
+	}
 }
 
 void AFutureRacingPawn::Steering(const FInputActionValue& Value)
@@ -163,6 +180,18 @@ void AFutureRacingPawn::StopHandbrake(const FInputActionValue& Value)
 {
 	// route the input
 	DoHandbrakeStop();
+}
+
+void AFutureRacingPawn::StartBoost(const FInputActionValue& Value)
+{
+	// route the input
+	DoBoostStart();
+}
+
+void AFutureRacingPawn::StopBoost(const FInputActionValue& Value)
+{
+	// route the input
+	DoBoostStop();
 }
 
 void AFutureRacingPawn::LookAround(const FInputActionValue& Value)
@@ -238,6 +267,23 @@ void AFutureRacingPawn::DoHandbrakeStop()
 
 	// call the Blueprint hook for the break lights
 	BrakeLights(false);
+}
+
+void AFutureRacingPawn::DoBoostStart()
+{
+	// increase engine torque
+	if (boostStored > 0.0f) {
+		isBoosting = true;
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Green, TEXT("Boost started!"));
+		ChaosVehicleMovement->SetMaxEngineTorque(ChaosVehicleMovement->EngineSetup.MaxTorque * boostThrottleAmount);
+	}
+}
+
+void AFutureRacingPawn::DoBoostStop()
+{
+	isBoosting = false;
+	ChaosVehicleMovement->SetMaxEngineTorque(ChaosVehicleMovement->EngineSetup.MaxTorque / boostThrottleAmount);
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Green, TEXT("Boost stopped!"));
 }
 
 void AFutureRacingPawn::DoLookAround(float YawDelta)
