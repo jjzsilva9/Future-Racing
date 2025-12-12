@@ -12,6 +12,7 @@
 #include "ChaosWheeledVehicleMovementComponent.h"
 #include "FutureRacing.h"
 #include "TimerManager.h"
+#include "Blueprint/UserWidget.h"
 
 #define LOCTEXT_NAMESPACE "VehiclePawn"
 
@@ -54,7 +55,7 @@ AFutureRacingPawn::AFutureRacingPawn()
 
 	boostThrottleAmount = 10.0f;
 	boostStored = 100.0f;
-	isBoosting = false;
+	bIsBoosting = false;
 }
 
 void AFutureRacingPawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -105,6 +106,13 @@ void AFutureRacingPawn::BeginPlay()
 
 	// set up the flipped check timer
 	GetWorld()->GetTimerManager().SetTimer(FlipCheckTimer, this, &AFutureRacingPawn::FlippedCheck, FlipCheckTime, true);
+
+	if (BoostWidgetClass) {
+		BoostWidget = CreateWidget<UUserWidget>(GetWorld(), BoostWidgetClass);
+		if (BoostWidget) {
+			BoostWidget->AddToViewport();
+		}
+	}
 }
 
 void AFutureRacingPawn::EndPlay(EEndPlayReason::Type EndPlayReason)
@@ -129,8 +137,7 @@ void AFutureRacingPawn::Tick(float Delta)
 
 	BackSpringArm->SetRelativeRotation(FRotator(0.0f, CameraYaw, 0.0f));
 
-	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Boost Stored: %.1f"), boostStored));
-	if (isBoosting) {
+	if (bIsBoosting) {
 		boostStored -= Delta * 20.0f;
 
 		if (boostStored <= 0.0f) {
@@ -273,17 +280,16 @@ void AFutureRacingPawn::DoBoostStart()
 {
 	// increase engine torque
 	if (boostStored > 0.0f) {
-		isBoosting = true;
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Green, TEXT("Boost started!"));
+		bIsBoosting = true;
 		ChaosVehicleMovement->SetMaxEngineTorque(ChaosVehicleMovement->EngineSetup.MaxTorque * boostThrottleAmount);
 	}
 }
 
 void AFutureRacingPawn::DoBoostStop()
 {
-	isBoosting = false;
-	ChaosVehicleMovement->SetMaxEngineTorque(ChaosVehicleMovement->EngineSetup.MaxTorque / boostThrottleAmount);
-	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Green, TEXT("Boost stopped!"));
+	// reset engine torque
+	bIsBoosting = false;
+	ChaosVehicleMovement->SetMaxEngineTorque(ChaosVehicleMovement->EngineSetup.MaxTorque);
 }
 
 void AFutureRacingPawn::DoLookAround(float YawDelta)

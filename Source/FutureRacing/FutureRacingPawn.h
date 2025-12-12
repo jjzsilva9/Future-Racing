@@ -10,6 +10,7 @@ class UCameraComponent;
 class USpringArmComponent;
 class UInputAction;
 class UChaosWheeledVehicleMovementComponent;
+class UUserWidget;
 struct FInputActionValue;
 
 /**
@@ -94,12 +95,26 @@ protected:
 	/** Flip check timer */
 	FTimerHandle FlipCheckTimer;
 
+	/** Amount to increase throttle during boost */
+    UPROPERTY(EditAnywhere, Category="Boost")
+    float boostThrottleAmount = 1.5f;
+
+    /** Current boost stored (0-100) */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Boost")
+    float boostStored = 100.0f;
+
+    /** Whether boost is currently active */
+    bool bIsBoosting = false;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="UI")
+	TSubclassOf<UUserWidget> BoostWidgetClass;
+
+	UPROPERTY()
+	UUserWidget* BoostWidget;
+
 public:
 	AFutureRacingPawn();
 
-	float boostThrottleAmount;
-	float boostStored;
-	bool isBoosting;
 	// Begin Pawn interface
 
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
@@ -212,6 +227,9 @@ protected:
 	void FlippedCheck();
 
 public:
+	/** Returns the current boost amount (0.0 to 1.0) */
+	UFUNCTION(BlueprintCallable, Category="Boost")
+	float GetBoostAmount() const {return boostStored / 100.0f;}
 	/** Returns the front spring arm subobject */
 	FORCEINLINE USpringArmComponent* GetFrontSpringArm() const { return FrontSpringArm; }
 	/** Returns the front camera subobject */
