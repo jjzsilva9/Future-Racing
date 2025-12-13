@@ -216,6 +216,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Input")
 	void DoResetVehicle();
 
+	UFUNCTION(BlueprintCallable, Category="Boost")
+	void AddBoost(float Amount);
+
 protected:
 
 	/** Called when the brake lights are turned on or off */

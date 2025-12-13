@@ -348,4 +348,12 @@ void AFutureRacingPawn::FlippedCheck()
 	}
 }
 
+void AFutureRacingPawn::AddBoost(float Amount)
+{
+	boostStored += Amount;
+	if (boostStored > 100.0f) {
+		boostStored = 100.0f;
+	}
+}
+
 #undef LOCTEXT_NAMESPACE
