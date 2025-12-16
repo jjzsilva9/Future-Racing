@@ -51,6 +51,8 @@ void UTimeTrialUI::UpdateLapCount(int32 Lap, float NewLapStartTime)
 
 		// first lap: save an invalid lap time
 		BestLapTime = -1.0f;
+		// store race start time
+		RaceStartTime = NewLapStartTime;
 
 	}
 
@@ -68,4 +70,13 @@ void UTimeTrialUI::StartRace()
 {
 	// broadcast the delegate
 	OnRaceStart.Broadcast();
+}
+
+float UTimeTrialUI::GetTotalRaceTime() const
+{
+	if (RaceStartTime > 0.0f)
+	{
+		return GetWorld()->GetTimeSeconds() - RaceStartTime;
+	}
+	return 0.0f;
 }

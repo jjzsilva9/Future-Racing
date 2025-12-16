@@ -6,6 +6,11 @@
 #include "TimeTrialTrackGate.h"
 #include "Engine/World.h"
 
+ATimeTrialGameMode::ATimeTrialGameMode()
+{
+	Laps = 3;
+}
+
 void ATimeTrialGameMode::BeginPlay()
 {
 	Super::BeginPlay();

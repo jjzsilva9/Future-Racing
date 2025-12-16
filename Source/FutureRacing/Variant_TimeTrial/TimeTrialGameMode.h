@@ -42,4 +42,6 @@ public:
 	/** Returns the number of laps for the race */
 	int32 GetLaps() const { return Laps; };
 
+	/** Constructor to set default values */
+	ATimeTrialGameMode();
 };

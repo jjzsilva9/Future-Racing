@@ -6,6 +6,7 @@
 #include "Engine/World.h"
 #include "TimeTrialGameMode.h"
 #include "TimeTrialTrackGate.h"
+#include "TimeTrialSaveGame.h"
 #include "EnhancedInputSubsystems.h"
 #include "Engine/LocalPlayer.h"
 #include "InputMappingContext.h"
@@ -71,6 +72,9 @@ void ATimeTrialPlayerController::BeginPlay()
 			UE_LOG(LogFutureRacing, Error, TEXT("Could not spawn vehicle UI widget."));
 
 		}
+
+		// Bind to race finish event to show leaderboard
+		OnRaceFinished.AddDynamic(this, &ATimeTrialPlayerController::ShowLeaderboard);
 	}
 
 }
@@ -141,6 +145,11 @@ void ATimeTrialPlayerController::StartRace()
 	// raise the race started flag so any respawned vehicles start with controls unlocked 
 	bRaceStarted = true;
 
+	// initialize race timing
+	RaceStartTime = GetWorld()->GetTimeSeconds();
+	LastLapStartTime = RaceStartTime;
+	LapTimes.Empty();
+
 	// start the first lap
 	CurrentLap = 0;
 	IncrementLapCount();
@@ -151,11 +160,99 @@ void ATimeTrialPlayerController::StartRace()
 
 void ATimeTrialPlayerController::IncrementLapCount()
 {
+	const float CurrentTime = GetWorld()->GetTimeSeconds();
+	const float LapTime = CurrentTime - LastLapStartTime;
+
+	// store lap time (skip first increment since that's lap 0 -> 1)
+	if (CurrentLap > 0)
+	{
+		LapTimes.Add(LapTime);
+	}
+
+	LastLapStartTime = CurrentTime;
+
 	// increment the lap counter
 	++CurrentLap;
 
 	// update the UI
 	UIWidget->UpdateLapCount(CurrentLap, GetWorld()->GetTimeSeconds());
+
+	// check if race is finished (get total laps from game mode)
+	if (ATimeTrialGameMode* GM = Cast<ATimeTrialGameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		if (CurrentLap > GM->GetLaps())
+		{
+			HandleRaceFinished();
+		}
+	}
+}
+
+void ATimeTrialPlayerController::HandleRaceFinished()
+{
+	const float TotalTime = GetWorld()->GetTimeSeconds() - RaceStartTime;
+
+	// find best lap time
+	float BestLap = FLT_MAX;
+	for (float Lap : LapTimes)
+	{
+		if (Lap < BestLap)
+		{
+			BestLap = Lap;
+		}
+	}
+
+	// save to leaderboard
+	SaveLeaderboardTime(TotalTime, BestLap);
+
+	// disable input
+	if (VehiclePawn)
+	{
+		VehiclePawn->DisableInput(this);
+	}
+
+	// broadcast event for UI or other systems to handle
+	OnRaceFinished.Broadcast(TotalTime, BestLap);
+}
+
+void ATimeTrialPlayerController::SaveLeaderboardTime(float TotalTime, float BestLap)
+{
+	UTimeTrialSaveGame* SaveGame = LoadOrCreateSaveGame();
+
+	FString DefaultPlayerName = TEXT("Player1"); // Set your default name here
+
+	if (SaveGame && SaveGame->IsQualifyingTime(TotalTime))
+	{
+		FTimeTrialRecord NewRecord;
+		NewRecord.PlayerName = DefaultPlayerName; // Use default name
+		NewRecord.TotalTime = TotalTime;
+		NewRecord.BestLapTime = BestLap;
+		NewRecord.RecordDate = FDateTime::Now();
+
+		bool MadeTopTen = SaveGame->AddTime(NewRecord);
+
+		// save to disk
+		UGameplayStatics::SaveGameToSlot(SaveGame, SaveSlotName, 0);
+
+		// broadcast event for UI or other systems to handle
+		OnNewLeaderboardRecord.Broadcast(MadeTopTen);
+	}
+}
+
+UTimeTrialSaveGame* ATimeTrialPlayerController::LoadOrCreateSaveGame()
+{
+	UTimeTrialSaveGame* SaveGame = nullptr;
+
+	if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))
+	{
+		SaveGame = Cast<UTimeTrialSaveGame>(UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0));
+	}
+
+	if (!SaveGame)
+	{
+		SaveGame = Cast<UTimeTrialSaveGame>(UGameplayStatics::CreateSaveGameObject(UTimeTrialSaveGame::StaticClass()));
+	}
+
+	return SaveGame;
 }
 
 ATimeTrialTrackGate* ATimeTrialPlayerController::GetTargetGate()
@@ -191,4 +288,16 @@ bool ATimeTrialPlayerController::ShouldUseTouchControls() const
 {
 	// are we on a mobile platform? Should we force touch?
 	return SVirtualJoystick::ShouldDisplayTouchInterface() || bForceTouchControls;
+}
+
+void ATimeTrialPlayerController::ShowLeaderboard(float TotalTime, float BestLapTime)
+{
+	if (LeaderboardWidgetClass)
+	{
+		UUserWidget* LeaderboardWidget = CreateWidget<UUserWidget>(this, LeaderboardWidgetClass);
+		if (LeaderboardWidget)
+		{
+			LeaderboardWidget->AddToViewport();
+		}
+	}
 }
