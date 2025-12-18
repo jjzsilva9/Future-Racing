@@ -1,10 +1,11 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "Variant_TimeTrial/TimeTrialGhostSaveGame.h"
+#include "Variant_TimeTrial/TimeTrialGhostCar.h"
 #include "TimeTrialPlayerController.generated.h"
+
 
 class ATimeTrialTrackGate;
 class UTimeTrialUI;
@@ -12,6 +13,7 @@ class UInputMappingContext;
 class UFutureRacingUI;
 class AFutureRacingPawn;
 class UTimeTrialSaveGame;
+class ATimeTrialGhostCar;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnRaceFinished, float, TotalTime, float, BestLapTime);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnNewLeaderboardRecord, bool, MadeTopTen);
@@ -26,9 +28,26 @@ class ATimeTrialPlayerController : public APlayerController
 	
 protected:
 
+	// Reference to the spawned ghost car
+	UPROPERTY()
+	ATimeTrialGhostCar* GhostCar = nullptr;
+
+	// Class to use for spawning the ghost car (set this to your BP_GhostCar in the editor)
+	UPROPERTY(EditAnywhere, Category = "Time Trial|Ghost")
+	TSubclassOf<ATimeTrialGhostCar> GhostCarClass;
+
 	/** Input Mapping Contexts */
 	UPROPERTY(EditAnywhere, Category ="Input|Input Mappings")
 	TArray<UInputMappingContext*> DefaultMappingContexts;
+
+	// Ghost recording variables
+	TArray<FGhostFrame> RecordedGhostFrames;
+	float GhostRecordAccumulator = 0.0f;
+	UPROPERTY(EditDefaultsOnly, Category="Time Trial|Ghost")
+	float GhostRecordInterval = 0.05f; // 50ms default
+
+	// Save ghost data if this is the best run
+	void SaveGhostIfBest(float TotalTime);
 
 	/** Input Mapping Contexts */
 	UPROPERTY(EditAnywhere, Category="Input|Input Mappings")

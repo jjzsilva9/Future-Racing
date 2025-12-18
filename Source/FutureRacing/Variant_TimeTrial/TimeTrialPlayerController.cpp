@@ -109,7 +109,7 @@ void ATimeTrialPlayerController::SetupInputComponent()
 void ATimeTrialPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
-
+	SetViewTarget(InPawn);
 	// get a pointer to the controlled pawn
 	VehiclePawn = CastChecked<AFutureRacingPawn>(InPawn);
 
@@ -120,7 +120,7 @@ void ATimeTrialPlayerController::OnPossess(APawn* InPawn)
 	if (!bRaceStarted)
 	{
 		VehiclePawn->DisableInput(this);
-	}	
+	}
 }
 
 void ATimeTrialPlayerController::Tick(float Delta)
@@ -131,6 +131,20 @@ void ATimeTrialPlayerController::Tick(float Delta)
 	{
 		VehicleUI->UpdateSpeed(VehiclePawn->GetChaosVehicleMovement()->GetForwardSpeed());
 		VehicleUI->UpdateGear(VehiclePawn->GetChaosVehicleMovement()->GetCurrentGear());
+	}
+
+	// Interval-based ghost recording: record at set intervals with timestamp
+	if (IsValid(VehiclePawn) && bRaceStarted)
+	{
+		GhostRecordAccumulator += Delta;
+		if (GhostRecordAccumulator >= GhostRecordInterval)
+		{
+			FGhostFrame Frame;
+			Frame.Time = GetWorld()->GetTimeSeconds() - RaceStartTime;
+			Frame.Transform = VehiclePawn->GetActorTransform();
+			RecordedGhostFrames.Add(Frame);
+			GhostRecordAccumulator = 0.0f;
+		}
 	}
 }
 
@@ -156,6 +170,40 @@ void ATimeTrialPlayerController::StartRace()
 
 	// enable input on the pawn
 	GetPawn()->EnableInput(this);
+
+	// Start ghost recording (always record)
+	RecordedGhostFrames.Empty();
+	GhostRecordAccumulator = 0.0f;
+
+	// Spawn ghost car if a best ghost exists
+	if (HasAuthority())
+	{
+		const FString GhostSlot = TEXT("TimeTrialGhost");
+		if (UGameplayStatics::DoesSaveGameExist(GhostSlot, 0))
+		{
+			UTimeTrialGhostSaveGame* GhostSave = Cast<UTimeTrialGhostSaveGame>(UGameplayStatics::LoadGameFromSlot(GhostSlot, 0));
+			if (GhostSave && GhostSave->GhostFrames.Num() > 1 && GhostCarClass)
+			{
+				// Find player start
+				TArray<AActor*> Starts;
+				UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), Starts);
+				FTransform SpawnTransform = Starts.Num() > 0 ? Starts[0]->GetActorTransform() : FTransform::Identity;
+				// Spawn ghost car using the Blueprint class
+				GhostCar = GetWorld()->SpawnActor<ATimeTrialGhostCar>(GhostCarClass, SpawnTransform);
+				if (GhostCar)
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Ghost car spawned!"));
+					if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Ghost car spawned!"));
+					GhostCar->InitializeGhost(GhostSave->GhostFrames);
+				}
+				else
+				{
+					UE_LOG(LogTemp, Error, TEXT("Failed to spawn ghost car!"));
+					if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Failed to spawn ghost car!"));
+				}
+			}
+		}
+	}
 }
 
 void ATimeTrialPlayerController::IncrementLapCount()
@@ -210,8 +258,36 @@ void ATimeTrialPlayerController::HandleRaceFinished()
 		VehiclePawn->DisableInput(this);
 	}
 
+
+	// Save ghost if new best time
+	SaveGhostIfBest(TotalTime);
+
 	// broadcast event for UI or other systems to handle
 	OnRaceFinished.Broadcast(TotalTime, BestLap);
+
+}
+
+void ATimeTrialPlayerController::SaveGhostIfBest(float TotalTime)
+{
+	// Load existing ghost save
+	const FString GhostSlot = TEXT("TimeTrialGhost");
+	UTimeTrialGhostSaveGame* GhostSave = nullptr;
+	if (UGameplayStatics::DoesSaveGameExist(GhostSlot, 0))
+	{
+		GhostSave = Cast<UTimeTrialGhostSaveGame>(UGameplayStatics::LoadGameFromSlot(GhostSlot, 0));
+	}
+	if (!GhostSave)
+	{
+		GhostSave = Cast<UTimeTrialGhostSaveGame>(UGameplayStatics::CreateSaveGameObject(UTimeTrialGhostSaveGame::StaticClass()));
+	}
+
+	// Save if no previous best or this run is better
+	if (!GhostSave->BestTime || TotalTime < GhostSave->BestTime)
+	{
+		GhostSave->BestTime = TotalTime;
+		GhostSave->GhostFrames = RecordedGhostFrames;
+		UGameplayStatics::SaveGameToSlot(GhostSave, GhostSlot, 0);
+	}
 }
 
 void ATimeTrialPlayerController::SaveLeaderboardTime(float TotalTime, float BestLap)
