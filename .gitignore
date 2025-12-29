@@ -73,3 +73,9 @@ Plugins/**/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 .vscode/c_cpp_properties.json
+UBTLog.txt
+.gitignore
+UBTLog.json
+FutureRacing.code-workspace
+FutureRacing.code-workspace
+FutureRacing.code-workspace
