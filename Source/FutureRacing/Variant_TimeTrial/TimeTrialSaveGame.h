@@ -30,12 +30,17 @@ struct FTimeTrialRecord
 	UPROPERTY(BlueprintReadWrite, Category = "Time Trial")
 	FDateTime RecordDate;
 
+	/** Is this the most recent lap? */
+	UPROPERTY(BlueprintReadWrite, Category = "Time Trial")
+	bool bIsRecentLap = false;
+
 	/** Default constructor */
 	FTimeTrialRecord()
 		: PlayerName(TEXT("Player"))
 		, TotalTime(0.0f)
 		, BestLapTime(0.0f)
 		, RecordDate(FDateTime::Now())
+        , bIsRecentLap(false)
 	{}
 };
 

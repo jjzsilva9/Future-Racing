@@ -57,7 +57,7 @@ void UTimeTrialUI::UpdateLapCount(int32 Lap, float NewLapStartTime)
 	}
 
 	// save the current lap
-	CurrentLap = Lap;
+	CurrentLap = FMath::Min(3, Lap);
 
 	// save the lap start time
 	LastLapTime = NewLapStartTime;

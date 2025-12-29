@@ -4,6 +4,12 @@
 
 bool UTimeTrialSaveGame::AddTime(const FTimeTrialRecord& NewRecord)
 {
+	// // If leaderboard is full, remove the last entry before adding new one
+	// if (TopTimes.Num() >= MaxLeaderboardEntries)
+	// {
+	// 	TopTimes.RemoveAt(TopTimes.Num() - 1);
+	// }
+
 	// add the new record to the array
 	TopTimes.Add(NewRecord);
 
@@ -17,7 +23,27 @@ bool UTimeTrialSaveGame::AddTime(const FTimeTrialRecord& NewRecord)
 	if (TopTimes.Num() > MaxLeaderboardEntries)
 	{
 		TopTimes.SetNum(MaxLeaderboardEntries);
+		// If the new record didn't make the leaderboard, don't mark any as recent
+		for (FTimeTrialRecord& Record : TopTimes)
+		{
+			Record.bIsRecentLap = false;
+		}
 		return false; // time added but didn't make top entries
+	}
+
+	// Mark all as not recent, then mark the new record as recent
+	for (FTimeTrialRecord& Record : TopTimes)
+	{
+		Record.bIsRecentLap = false;
+	}
+	// Find the record matching the new lap and mark as recent
+	for (FTimeTrialRecord& Record : TopTimes)
+	{
+		if (Record.PlayerName == NewRecord.PlayerName && FMath::IsNearlyEqual(Record.TotalTime, NewRecord.TotalTime))
+		{
+			Record.bIsRecentLap = true;
+			break;
+		}
 	}
 
 	return true; // time made it into leaderboard

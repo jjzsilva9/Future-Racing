@@ -303,6 +303,7 @@ void ATimeTrialPlayerController::SaveLeaderboardTime(float TotalTime, float Best
 		NewRecord.TotalTime = TotalTime;
 		NewRecord.BestLapTime = BestLap;
 		NewRecord.RecordDate = FDateTime::Now();
+		NewRecord.bIsRecentLap = true;
 
 		bool MadeTopTen = SaveGame->AddTime(NewRecord);
 
