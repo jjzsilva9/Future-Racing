@@ -54,7 +54,7 @@ protected:
 public:
 
 	/** Increments the lap and updates the lap counter */
-	void UpdateLapCount(int32 Lap, float NewLapStartTime);
+	void UpdateLapCount(int32 Lap, float NewLapStartTime, float TotalRaceTime);
 
 	/** Allows Blueprint control to update the lap tracker widgets */
 	UFUNCTION(BlueprintImplementableEvent, Category="Time Trial", meta = (DisplayName = "Update Laps"))

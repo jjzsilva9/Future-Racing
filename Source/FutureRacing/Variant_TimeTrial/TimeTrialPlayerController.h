@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerController.h"
+#include "RacingPlayerController.h"
 #include "Variant_TimeTrial/TimeTrialGhostSaveGame.h"
 #include "Variant_TimeTrial/TimeTrialGhostCar.h"
 #include "TimeTrialPlayerController.generated.h"
@@ -22,12 +22,12 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnNewLeaderboardRecord, bool, MadeT
  *  A simple PlayerController for a Time Trial racing game
  */
 UCLASS(abstract, Config="Game")
-class ATimeTrialPlayerController : public APlayerController
+class ATimeTrialPlayerController : public ARacingPlayerController
 {
 	GENERATED_BODY()
 	
-protected:
 
+protected:
 	// Reference to the spawned ghost car
 	UPROPERTY()
 	ATimeTrialGhostCar* GhostCar = nullptr;
@@ -35,10 +35,6 @@ protected:
 	// Class to use for spawning the ghost car (set this to your BP_GhostCar in the editor)
 	UPROPERTY(EditAnywhere, Category = "Time Trial|Ghost")
 	TSubclassOf<ATimeTrialGhostCar> GhostCarClass;
-
-	/** Input Mapping Contexts */
-	UPROPERTY(EditAnywhere, Category ="Input|Input Mappings")
-	TArray<UInputMappingContext*> DefaultMappingContexts;
 
 	// Ghost recording variables
 	TArray<FGhostFrame> RecordedGhostFrames;
@@ -48,10 +44,6 @@ protected:
 
 	// Save ghost data if this is the best run
 	void SaveGhostIfBest(float TotalTime);
-
-	/** Input Mapping Contexts */
-	UPROPERTY(EditAnywhere, Category="Input|Input Mappings")
-	TArray<UInputMappingContext*> MobileExcludedMappingContexts;
 
 	/** Mobile controls widget to spawn */
 	UPROPERTY(EditAnywhere, Category="Input|Touch Controls")
@@ -129,12 +121,6 @@ protected:
 	/** Gameplay initialization */
 	virtual void BeginPlay() override;
 
-	/** Input initialization */
-	virtual void SetupInputComponent() override;
-
-	/** Pawn initialization */
-	virtual void OnPossess(APawn* aPawn) override;
-
 public:
 
 	/** UI vehicle state update on tick */
@@ -151,8 +137,7 @@ public:
 	FOnNewLeaderboardRecord OnNewLeaderboardRecord;
 
 	/** Sets up the race start */
-	UFUNCTION()
-	void StartRace();
+	void StartRace() override;
 
 	/** Moves on to the next lap */
 	void IncrementLapCount();

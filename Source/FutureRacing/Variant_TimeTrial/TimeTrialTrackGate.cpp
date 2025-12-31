@@ -5,6 +5,7 @@
 #include "Components/SceneComponent.h"
 #include "Components/BoxComponent.h"
 #include "TimeTrialPlayerController.h"
+#include "AIRacePlayerController.h"
 
 ATimeTrialTrackGate::ATimeTrialTrackGate()
 {
@@ -27,18 +28,26 @@ ATimeTrialTrackGate::ATimeTrialTrackGate()
 void ATimeTrialTrackGate::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	// get the player controller of the overlapping actor
-	if (ATimeTrialPlayerController* PC = Cast<ATimeTrialPlayerController>(OtherActor->GetInstigatorController()))
+	AController* Controller = OtherActor->GetInstigatorController();
+	if (ATimeTrialPlayerController* TTPC = Cast<ATimeTrialPlayerController>(Controller))
 	{
-		// is this the current target marker for the player?
-		if (PC->GetTargetGate() == this)
+		if (TTPC->GetTargetGate() == this)
 		{
-			// point the player to the next marker
-			PC->SetTargetGate(NextMarker);
-
-			// if this is the finish line, increment the lap
+			TTPC->SetTargetGate(NextMarker);
 			if (bIsFinishLine)
 			{
-				PC->IncrementLapCount();
+				TTPC->IncrementLapCount();
+			}
+		}
+	}
+	else if (AAIRacePlayerController* AIRacePC = Cast<AAIRacePlayerController>(Controller))
+	{
+		if (AIRacePC->GetTargetGate() == this)
+		{
+			AIRacePC->SetTargetGate(NextMarker);
+			if (bIsFinishLine)
+			{
+				AIRacePC->IncrementLapCount();
 			}
 		}
 	}
