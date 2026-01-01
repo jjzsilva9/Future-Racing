@@ -1,0 +1,21 @@
+Tools:
+- CyberScape Pro - A. Dürr, 2023; https://superhivemarket.com/products/cyberscape-pro/
+	Used for complete generation of the city environment displayed.
+Tutorials:
+- Create Procedural Terrains in Blender - ChuckCG (Youtube, 2024) - https://youtu.be/SzsdzOIS8AE?si=Ot1R1Xa0S4upLeOi
+	Used to generate a height map for environment terrain.
+- "How to Bake Displacement Maps (Blender Tutorial)" - Ryan King Art (Youtube, 2022) https://youtu.be/H51zh25KGGY?si=CMt7bJthif9BajpQ
+	Used to save the height map to apply to world.
+Assets:
+   Textures:
+	- snow_field_aerial_col_2k.jpg from PolyHaven (Rob Tuytel, 2021) https://polyhaven.com/a/snow_field_aerial
+		Used for terrain texturing.
+   City Ads (Each modified from original pictures, all accessed Jan. 1st, 2026):
+	- "Close-Up view of Logo With Horse" - L. Bergerson, 2021 on Pexels.com (https://www.pexels.com/photo/close-up-view-of-logo-with-horse-9843280/)
+	- "Plage de Rock Neon Sign" - B. Rühli, 2018 on pexels.com (https://www.pexels.com/photo/plage-de-rock-neon-sign-7267781/)
+	- "Vintage Aperol Spritz Neon Sign on Weathered Wall" - B. Rühli, 2025 on pexels.com (https://www.pexels.com/photo/vintage-aperol-spritz-neon-sign-on-weathered-wall-35435778/)
+	- "Seoul Mates Led Signage" - R. (Ishan) Das, 2019 on pexels.com (https://www.pexels.com/photo/seoul-mates-led-signage-2519330/)
+	- "Photo of Beer Neon Signage" - A. Knight, 2019 on pexels.com (https://www.pexels.com/photo/photo-of-beer-neon-signage-2599245/)
+	- "An Illuminated Signage with Neon Lights" - A. Pérez, 2020 on pexels.com (https://www.pexels.com/photo/an-illuminated-signage-with-neon-lights-4932238/)
+	- "DETROIT: Become Human / Cyberlife Logo (FanMade)" - JannikSetttinger, 2018 on deviantart.com (https://www.deviantart.com/janniksetttinger/art/DETROIT-Become-Human-CyberLife-Logo-FanMade-747527785)
+	- "Arasaka Corporation Logo", https://www.worldanvil.com/w/cyberpunk-jokerkiller/a/arasaka-corporation-organization
