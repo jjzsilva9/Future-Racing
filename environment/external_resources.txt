@@ -10,6 +10,8 @@ Assets:
    Textures:
 	- snow_field_aerial_col_2k.jpg from PolyHaven (Rob Tuytel, 2021) https://polyhaven.com/a/snow_field_aerial
 		Used for terrain texturing.
+	- "Asphalt with White Stripe" from sharetextures.com (M.Tolga Arslan, 2018) https://www.sharetextures.com/textures/road/asphalt-with-white-stripe
+		Used for environment road texturing.
    City Ads (Each modified from original pictures, all accessed Jan. 1st, 2026):
 	- "Close-Up view of Logo With Horse" - L. Bergerson, 2021 on Pexels.com (https://www.pexels.com/photo/close-up-view-of-logo-with-horse-9843280/)
 	- "Plage de Rock Neon Sign" - B. Rühli, 2018 on pexels.com (https://www.pexels.com/photo/plage-de-rock-neon-sign-7267781/)
