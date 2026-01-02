@@ -6,6 +6,8 @@ Tutorials:
 	Used to generate a height map for environment terrain.
 - "How to Bake Displacement Maps (Blender Tutorial)" - Ryan King Art (Youtube, 2022) https://youtu.be/H51zh25KGGY?si=CMt7bJthif9BajpQ
 	Used to save the height map to apply to world.
+- "How to make a Skybox in Unreal Engine 5" - Digvijaysinh Gohil (Youtube, 2024) https://youtu.be/qAt_QJSN1J0?si=e0_WGLxzF2RbwCPj
+	Used to configure a simple skybox for the environment.
 Assets:
    Textures:
 	- snow_field_aerial_col_2k.jpg from PolyHaven (Rob Tuytel, 2021) https://polyhaven.com/a/snow_field_aerial
