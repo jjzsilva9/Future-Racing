@@ -79,49 +79,7 @@ void ATimeTrialPlayerController::BeginPlay()
 
 }
 
-void ATimeTrialPlayerController::SetupInputComponent()
-{
-	Super::SetupInputComponent();
 
-	// only add IMCs for local player controllers
-	if (IsLocalPlayerController())
-	{
-		// Add Input Mapping Contexts
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
-		{
-			for (UInputMappingContext* CurrentContext : DefaultMappingContexts)
-			{
-				Subsystem->AddMappingContext(CurrentContext, 0);
-			}
-
-			// only add these IMCs if we're not using mobile touch input
-			if (!ShouldUseTouchControls())
-			{
-				for (UInputMappingContext* CurrentContext : MobileExcludedMappingContexts)
-				{
-					Subsystem->AddMappingContext(CurrentContext, 0);
-				}
-			}
-		}
-	}
-}
-
-void ATimeTrialPlayerController::OnPossess(APawn* InPawn)
-{
-	Super::OnPossess(InPawn);
-	SetViewTarget(InPawn);
-	// get a pointer to the controlled pawn
-	VehiclePawn = CastChecked<AFutureRacingPawn>(InPawn);
-
-	// subscribe to the pawn's OnDestroyed delegate
-	VehiclePawn->OnDestroyed.AddDynamic(this, &ATimeTrialPlayerController::OnPawnDestroyed);
-
-	// disable input on the pawn if the race hasn't started yet
-	if (!bRaceStarted)
-	{
-		VehiclePawn->DisableInput(this);
-	}
-}
 
 void ATimeTrialPlayerController::Tick(float Delta)
 {
@@ -168,8 +126,7 @@ void ATimeTrialPlayerController::StartRace()
 	CurrentLap = 0;
 	IncrementLapCount();
 
-	// enable input on the pawn
-	GetPawn()->EnableInput(this);
+	Super::StartRace();
 
 	// Start ghost recording (always record)
 	RecordedGhostFrames.Empty();
@@ -192,8 +149,8 @@ void ATimeTrialPlayerController::StartRace()
 				GhostCar = GetWorld()->SpawnActor<ATimeTrialGhostCar>(GhostCarClass, SpawnTransform);
 				if (GhostCar)
 				{
-					UE_LOG(LogTemp, Warning, TEXT("Ghost car spawned!"));
-					if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Ghost car spawned!"));
+					// UE_LOG(LogTemp, Warning, TEXT("Ghost car spawned!"));
+					// if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Ghost car spawned!"));
 					GhostCar->InitializeGhost(GhostSave->GhostFrames);
 				}
 				else
@@ -222,8 +179,9 @@ void ATimeTrialPlayerController::IncrementLapCount()
 	// increment the lap counter
 	++CurrentLap;
 
-	// update the UI
-	UIWidget->UpdateLapCount(CurrentLap, GetWorld()->GetTimeSeconds());
+	// update the UI with total race time
+	float TotalRaceTime = GetWorld()->GetTimeSeconds() - RaceStartTime;
+	UIWidget->UpdateLapCount(CurrentLap, GetWorld()->GetTimeSeconds(), TotalRaceTime);
 
 	// check if race is finished (get total laps from game mode)
 	if (ATimeTrialGameMode* GM = Cast<ATimeTrialGameMode>(GetWorld()->GetAuthGameMode()))
@@ -252,11 +210,7 @@ void ATimeTrialPlayerController::HandleRaceFinished()
 	// save to leaderboard
 	SaveLeaderboardTime(TotalTime, BestLap);
 
-	// disable input
-	if (VehiclePawn)
-	{
-		VehiclePawn->DisableInput(this);
-	}
+	Super::HandleRaceFinished();
 
 
 	// Save ghost if new best time
