@@ -114,7 +114,7 @@ protected:
 	TSubclassOf<AFutureRacingPawn> VehiclePawnClass;
 
 	/** Pointer to the controlled vehicle pawn */
-	TObjectPtr<AFutureRacingPawn> VehiclePawn;
+	// TObjectPtr<AFutureRacingPawn> VehiclePawn;
 
 protected:
 
