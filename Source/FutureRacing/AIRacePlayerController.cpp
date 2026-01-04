@@ -15,32 +15,6 @@
 void AAIRacePlayerController::BeginPlay()
 {
     Super::BeginPlay();
-    UE_LOG(LogTemp, Warning, TEXT("AAIRacePlayerController::BeginPlay called"));
-    UE_LOG(LogTemp, Warning, TEXT("Joe Check: AAIRacePlayerController initialized and ticking!"));
-    if (GEngine)
-    {
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Joe Check: AAIRacePlayerController initialized and ticking!"));
-    }
-    if (GEngine)
-    {
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("AAIRacePlayerController::BeginPlay called"));
-    }
-    if (GetPawn())
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Pawn at BeginPlay: %s"), *GetPawn()->GetName());
-        if (GEngine)
-        {
-            GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, FString::Printf(TEXT("Pawn at BeginPlay: %s"), *GetPawn()->GetName()));
-        }
-    }
-    else
-    {
-        UE_LOG(LogTemp, Warning, TEXT("No pawn possessed at BeginPlay"));
-        if (GEngine)
-        {
-            GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("No pawn possessed at BeginPlay"));
-        }
-    }
     // Only spawn UI on local player controllers
     if (IsLocalPlayerController())
     {
@@ -52,7 +26,6 @@ void AAIRacePlayerController::BeginPlay()
             {
                 UIWidget->AddToViewport(0);
                 UIWidget->OnRaceStart.AddDynamic(this, &AAIRacePlayerController::StartRace);
-                UE_LOG(LogTemp, Warning, TEXT("AAIRacePlayerController: Bound OnRaceStart to StartRace."));
             }
             else
             {
@@ -103,7 +76,6 @@ void AAIRacePlayerController::Tick(float DeltaSeconds)
 
 void AAIRacePlayerController::StartRace()
 {
-    UE_LOG(LogTemp, Warning, TEXT("AAIRacePlayerController: Ran StartRace."));
 
     // Set the initial target gate for AI race mode
     if (AAIRaceGameMode* GM = Cast<AAIRaceGameMode>(GetWorld()->GetAuthGameMode()))
