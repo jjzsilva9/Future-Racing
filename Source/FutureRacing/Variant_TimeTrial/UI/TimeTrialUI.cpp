@@ -19,7 +19,7 @@ void UTimeTrialUI::NativeConstruct()
 	StartUI->StartCountdown();
 }
 
-void UTimeTrialUI::UpdateLapCount(int32 Lap, float NewLapStartTime)
+void UTimeTrialUI::UpdateLapCount(int32 Lap, float NewLapStartTime, float TotalRaceTime)
 {
 	// save the new lap start time
 	LapStartTime = NewLapStartTime;
@@ -51,11 +51,13 @@ void UTimeTrialUI::UpdateLapCount(int32 Lap, float NewLapStartTime)
 
 		// first lap: save an invalid lap time
 		BestLapTime = -1.0f;
+		// store race start time
+		RaceStartTime = NewLapStartTime;
 
 	}
 
 	// save the current lap
-	CurrentLap = Lap;
+	CurrentLap = FMath::Min(3, Lap);
 
 	// save the lap start time
 	LastLapTime = NewLapStartTime;
@@ -67,5 +69,15 @@ void UTimeTrialUI::UpdateLapCount(int32 Lap, float NewLapStartTime)
 void UTimeTrialUI::StartRace()
 {
 	// broadcast the delegate
+	UE_LOG(LogTemp, Warning, TEXT("UTimeTrialUI::StartRace() called. Broadcasting OnRaceStart."));
 	OnRaceStart.Broadcast();
+}
+
+float UTimeTrialUI::GetTotalRaceTime() const
+{
+	if (RaceStartTime > 0.0f)
+	{
+		return GetWorld()->GetTimeSeconds() - RaceStartTime;
+	}
+	return 0.0f;
 }

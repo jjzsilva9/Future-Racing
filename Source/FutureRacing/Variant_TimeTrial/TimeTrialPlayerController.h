@@ -1,34 +1,49 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerController.h"
+#include "RacingPlayerController.h"
+#include "Variant_TimeTrial/TimeTrialGhostSaveGame.h"
+#include "Variant_TimeTrial/TimeTrialGhostCar.h"
 #include "TimeTrialPlayerController.generated.h"
+
 
 class ATimeTrialTrackGate;
 class UTimeTrialUI;
 class UInputMappingContext;
 class UFutureRacingUI;
 class AFutureRacingPawn;
+class UTimeTrialSaveGame;
+class ATimeTrialGhostCar;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnRaceFinished, float, TotalTime, float, BestLapTime);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnNewLeaderboardRecord, bool, MadeTopTen);
 
 /**
  *  A simple PlayerController for a Time Trial racing game
  */
 UCLASS(abstract, Config="Game")
-class ATimeTrialPlayerController : public APlayerController
+class ATimeTrialPlayerController : public ARacingPlayerController
 {
 	GENERATED_BODY()
 	
+
 protected:
+	// Reference to the spawned ghost car
+	UPROPERTY()
+	ATimeTrialGhostCar* GhostCar = nullptr;
 
-	/** Input Mapping Contexts */
-	UPROPERTY(EditAnywhere, Category ="Input|Input Mappings")
-	TArray<UInputMappingContext*> DefaultMappingContexts;
+	// Class to use for spawning the ghost car (set this to your BP_GhostCar in the editor)
+	UPROPERTY(EditAnywhere, Category = "Time Trial|Ghost")
+	TSubclassOf<ATimeTrialGhostCar> GhostCarClass;
 
-	/** Input Mapping Contexts */
-	UPROPERTY(EditAnywhere, Category="Input|Input Mappings")
-	TArray<UInputMappingContext*> MobileExcludedMappingContexts;
+	// Ghost recording variables
+	TArray<FGhostFrame> RecordedGhostFrames;
+	float GhostRecordAccumulator = 0.0f;
+	UPROPERTY(EditDefaultsOnly, Category="Time Trial|Ghost")
+	float GhostRecordInterval = 0.05f; // 50ms default
+
+	// Save ghost data if this is the best run
+	void SaveGhostIfBest(float TotalTime);
 
 	/** Mobile controls widget to spawn */
 	UPROPERTY(EditAnywhere, Category="Input|Touch Controls")
@@ -68,6 +83,10 @@ protected:
 	UPROPERTY()
 	TObjectPtr<UFutureRacingUI> VehicleUI;
 
+	/** Leaderboard widget class to display at race end */
+	UPROPERTY(EditAnywhere, Category="Time Trial|UI")
+	TSubclassOf<UUserWidget> LeaderboardWidgetClass;
+
 	/** Next track gate the car should pass */
 	TObjectPtr<ATimeTrialTrackGate> TargetGate;
 
@@ -77,23 +96,30 @@ protected:
 	/** If true, the race has already started */
 	bool bRaceStarted = false;
 
+	/** Game time when the race started */
+	float RaceStartTime = 0.0f;
+
+	/** Game time when the last lap started */
+	float LastLapStartTime = 0.0f;
+
+	/** Array of individual lap times */
+	TArray<float> LapTimes;
+
+	/** Save slot name for leaderboard data */
+	UPROPERTY(EditDefaultsOnly, Category="Time Trial|Leaderboard")
+	FString SaveSlotName = TEXT("TimeTrialLeaderboard");
+
 	/** Type of vehicle to automatically respawn when it's destroyed */
 	UPROPERTY(EditAnywhere, Category="Vehicle|Respawn")
 	TSubclassOf<AFutureRacingPawn> VehiclePawnClass;
 
 	/** Pointer to the controlled vehicle pawn */
-	TObjectPtr<AFutureRacingPawn> VehiclePawn;
+	// TObjectPtr<AFutureRacingPawn> VehiclePawn;
 
 protected:
 
 	/** Gameplay initialization */
 	virtual void BeginPlay() override;
-
-	/** Input initialization */
-	virtual void SetupInputComponent() override;
-
-	/** Pawn initialization */
-	virtual void OnPossess(APawn* aPawn) override;
 
 public:
 
@@ -102,12 +128,28 @@ public:
 
 public:
 
+	/** Broadcast when the race finishes */
+	UPROPERTY(BlueprintAssignable, Category="Time Trial")
+	FOnRaceFinished OnRaceFinished;
+
+	/** Broadcast when a new leaderboard record is saved */
+	UPROPERTY(BlueprintAssignable, Category="Time Trial")
+	FOnNewLeaderboardRecord OnNewLeaderboardRecord;
+
 	/** Sets up the race start */
-	UFUNCTION()
-	void StartRace();
+	void StartRace() override;
 
 	/** Moves on to the next lap */
 	void IncrementLapCount();
+
+	/** Called when the race finishes */
+	void HandleRaceFinished();
+
+	/** Saves the race time to the leaderboard */
+	void SaveLeaderboardTime(float TotalTime, float BestLap);
+
+	/** Loads or creates the save game object */
+	UTimeTrialSaveGame* LoadOrCreateSaveGame();
 
 	/** Returns the current target track gate */
 	ATimeTrialTrackGate* GetTargetGate();
@@ -123,4 +165,8 @@ protected:
 
 	/** Returns true if the player should use UMG touch controls */
 	bool ShouldUseTouchControls() const;
+
+	/** Shows the leaderboard widget when the race finishes */
+	UFUNCTION()
+	void ShowLeaderboard(float TotalTime, float BestLapTime);
 };

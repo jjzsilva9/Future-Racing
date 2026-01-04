@@ -38,6 +38,9 @@ protected:
 	/** Current lap number */
 	int32 CurrentLap = 0;
 
+	/** Game time when the race started */
+	float RaceStartTime = 0.0f;
+
 public:
 
 	/** Delegate to broadcast when the race starts */
@@ -51,7 +54,7 @@ protected:
 public:
 
 	/** Increments the lap and updates the lap counter */
-	void UpdateLapCount(int32 Lap, float NewLapStartTime);
+	void UpdateLapCount(int32 Lap, float NewLapStartTime, float TotalRaceTime);
 
 	/** Allows Blueprint control to update the lap tracker widgets */
 	UFUNCTION(BlueprintImplementableEvent, Category="Time Trial", meta = (DisplayName = "Update Laps"))
@@ -74,4 +77,8 @@ protected:
 	/** Gets the best lap time saved */
 	UFUNCTION(BlueprintPure, Category="Time Trial")
 	float GetLapStartTime() const { return LapStartTime; };
+
+	/** Gets the total race time elapsed */
+	UFUNCTION(BlueprintPure, Category="Time Trial")
+	float GetTotalRaceTime() const;
 };
